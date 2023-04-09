@@ -1,5 +1,5 @@
 # Usage
- - Download expo go on the app store / google play store
+ - Download expo go on the app store / Google play store
  
  - Clone this repository
  
