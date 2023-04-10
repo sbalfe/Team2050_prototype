@@ -4,9 +4,8 @@ import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
 import { Link, useNavigation, useRouter, useSearchParams } from 'expo-router';
 import React, { useState } from 'react';
+import DropDownPicker from 'react-native-dropdown-picker';
 
-
-const subjectOptions = ['computer graphics', 'linear algebra', 'foundations of computation', 'software project'];
 
 
 type SubjectData = {
@@ -30,6 +29,15 @@ export default function TabTwoScreen() {
     setSubject('');
     setCredits('');
     setPercentage('');
+  };
+
+  const handlePrintData = () => {
+    console.log('User Submitted Data:');
+    data.forEach((item, index) => {
+      console.log(`Subject ${index + 1}: ${item.subject}`);
+      console.log(`Credits ${index + 1}: ${item.credits}`);
+      console.log(`Percentage ${index + 1}: ${item.percentage}`);
+    });
   };
 
   return (
