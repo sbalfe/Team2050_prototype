@@ -7,7 +7,7 @@ export default function NotFoundScreen() {
 
   const router = useRouter();
 
-  console.log(`failed route ${router.route}`)
+  console.log(`failed route ${JSON.stringify(router)}`)
 
   return (
     <>
@@ -15,7 +15,7 @@ export default function NotFoundScreen() {
       <View style={styles.container}>
         <Text style={styles.title}>This screen doesn't exist.</Text>
 
-        <Link href="/" style={styles.link}>
+        <Link href="(tabs)/home" style={styles.link}>
           <Text style={styles.linkText}>Go to home screen!</Text>
         </Link>
       </View>

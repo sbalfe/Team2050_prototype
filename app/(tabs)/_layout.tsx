@@ -12,39 +12,28 @@ function TabBarIcon(props: {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
 
-const Tab = createBottomTabNavigator();
-
 export default function TabLayout() {
-
-  const colorScheme = useColorScheme();
 
   return (
     <Tabs>
       <Tabs.Screen
         name="home"
         options={{
-          title: 'wee',
+          title: 'Home',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
         }}
       />
       <Tabs.Screen
         name="control_panel"
         options={{
           title: 'Control Panel',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="timetable"
+        options={{
+          title: 'timetable',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
