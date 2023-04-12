@@ -1,5 +1,5 @@
 # Usage
- - Download expo go on the app store / Google play store
+ - Download expo go on your mobile. Apple you can just scan the QR code.
  
  - Clone this repository
  
