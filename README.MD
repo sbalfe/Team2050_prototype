@@ -8,3 +8,5 @@
  - In the root directory type `expo start` to run the app
  
  - Scan the QR code generated with the expo go app
+ 
+ - test
