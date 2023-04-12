@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "my-new-project",
-    "slug": "my-new-project",
-    "version": "1.0.0",
+    "name": "StudyXpert",
+    "slug": "StudyXpert",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -19,6 +19,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.studyexpert",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -27,6 +29,11 @@
     "web": {
       "bundler": "metro",
       "favicon": "./assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d3f5ef91-9767-4e66-93a3-733e44adc16b"
+      }
     }
   }
 }
