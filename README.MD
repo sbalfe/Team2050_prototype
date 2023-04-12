@@ -9,4 +9,8 @@
  
  - Scan the QR code generated with the expo go app
  
+<<<<<<< HEAD
  - test3
+=======
+ - test4
+>>>>>>> 4ccf1fb30cdbef4c9decbb573b22bc9332c10b7b
