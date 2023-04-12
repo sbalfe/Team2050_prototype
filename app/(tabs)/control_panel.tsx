@@ -3,24 +3,15 @@ import { Button, StyleSheet, TextInput, ScrollView} from 'react-native';
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
 import { Link, useNavigation, useRouter, useSearchParams } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { setBadgeCountAsync } from 'expo-notifications';
 import { ValueOf } from 'next/dist/shared/lib/constants';
+import ModuleData from '../../types/moduleData';
+import Assessment from '../../types/assesment';
+import { Router } from 'next/router';
 
 
-type Assesment = {
-  name: string;
-  proportion: string;
-  date: string
-}
-
-type ModuleData = {
-  moduleName: string;
-  studyHours: string;
-  credits: string;
-  Assesments: Assesment[];
-}
 
 const dates: {[key: number]: string} = {
   1: '13/05/2023',
@@ -35,7 +26,7 @@ const dates: {[key: number]: string} = {
 
 export default function TabTwoScreen() {
   const [data, setData] = useState<ModuleData[]>([]);
-  const [assesment, setAssesment] = useState<Assesment[]>([]);
+  const [assessments, setAssesments] = useState<Assessment[]>([]);
   const [moduleName, setModuleName] = useState('');
   const [credits, setCredits] = useState('');
   const [percentage, setPercentage] = useState('');
@@ -47,9 +38,18 @@ export default function TabTwoScreen() {
   const [dateIndex, setDateIndex] = useState<number>(1);
 
 
+  const router = useRouter();
+
   const incrementDateIndex = () => {
     console.log(dateIndex)
     setDateIndex(dateIndex + 1)
+  }
+
+  const passData = () => {
+
+
+    const value: string = JSON.stringify(data);
+    router.push({ pathname: "/(tabs)/home", params: { data: value }});
   }
 
   const handleAddData = () => {
@@ -59,14 +59,16 @@ export default function TabTwoScreen() {
       return;
     }
 
-    const newData = { moduleName, credits, studyHours, Assesments: assesment};
+    //const newData: ModuleData = { moduleName,studyHours, credits, assessments};
 
-    setData([...data, newData]);
+    setData([...data, { moduleName,studyHours, credits, assessments}]);
+    
+
 
     setModuleName('');
     setCredits('');
     setPercentage('');
-    setAssesment([]);
+    setAssesments([]);
   };
 
   const checkRange = (value: number, lower_bound: number, upper_bound: number): boolean => {
@@ -80,7 +82,7 @@ export default function TabTwoScreen() {
       - validate range 
     */
 
-    if (assesment.length >= 2) {
+    if (assessments.length >= 2) {
       alert('You can only add up to 2 assesments');
       return;
     }
@@ -94,10 +96,10 @@ export default function TabTwoScreen() {
       setProportion('');
     } 
   
-    if (assesment.length > 0){
+    if (assessments.length > 0){
 
       // proportions of each assesment must add to 100
-      if ((parseInt(assesment[0].proportion) + proportion_n) != 100) {
+      if ((parseInt(assessments[0].proportion) + proportion_n) != 100) {
         alert('proportions of each assesment must equal 100');
         setProportion('');
         return;
@@ -112,12 +114,12 @@ export default function TabTwoScreen() {
     /* hardcoded dates index */
     incrementDateIndex();
 
-    setAssesment([...assesment, assessement_data]);
+    setAssesments([...assessments, assessement_data]);
   }
 
   const wipeData = () => {
     setData([]);
-    setAssesment([]);
+    setAssesments([]);
     setModuleName('');
     setCredits('');
     setPercentage('');
@@ -128,6 +130,7 @@ export default function TabTwoScreen() {
   };
 
   return (
+    
     <View>
       <View>
         <Text>Module:</Text>
@@ -189,12 +192,14 @@ export default function TabTwoScreen() {
       </View>
       <Button title='Submit' onPress={handleAddData} />
       <Button title='Clear All Data' onPress={wipeData} />
+      <Button title='go to home tab' onPress={passData} />
+  
 
 
       <Text style = {{fontSize: 19, color: 'green'}}>Assessments</Text> 
       { 
       
-        assesment.map((item: Assesment, index) => (
+        assessments.map((item: Assessment, index) => (
             <View style = {{marginTop: 10}} key = {index}>
               <Text>Name: {item.name}</Text>
               <Text>Proportion: {item.proportion}%</Text>
@@ -219,7 +224,7 @@ export default function TabTwoScreen() {
           <Text>Study Hours: {module.studyHours}</Text>
           <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Assesments</Text>
           {
-          module.Assesments.map((assesment, index) => (
+          module.assessments.map((assesment, index) => (
             <View style = {{marginTop: 10, marginBottom: 5}} key={index}>
               <Text>Name: {assesment.name}</Text>
               <Text>Proportion: {assesment.proportion}</Text>
@@ -231,6 +236,7 @@ export default function TabTwoScreen() {
       </ScrollView>
   
     </View>
+ 
   );
 }
 
