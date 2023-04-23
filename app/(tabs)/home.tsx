@@ -37,9 +37,13 @@ export default function TabOneScreen() {
 
   useEffect(() => {
    
+  
     if (data != undefined){
       const data_o = JSON.parse(data) as ModuleData[];
+
       setData(data_o);
+      console.log(dataLocal[0].moduleName)
+
     }
   
   }, []);
@@ -47,18 +51,18 @@ export default function TabOneScreen() {
   return (
 
       <>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       
             <View>
-              <Text>Upcoming test</Text>
+              <Text style = {{fontSize: 20}}>Upcoming test</Text>
               <Text>Today for 1 hour</Text>
               <Text>{dataLocal[2].moduleName}</Text>
               <Text>Tomorrow for 1 hour</Text>
               <Text>{dataLocal[3].moduleName}</Text>
             </View>
             <View>
-              <Text>Upcoming Deadlines</Text>
-               <Text>In 2 weeks 3 Day</Text>
+              <Text style = {{fontSize: 20}}>Upcoming  Deadlines</Text>
+               <Text >In 2 weeks 3 Day</Text>
                <Text>{dataLocal[0].moduleName}</Text>
                <Text>In 1 month 2 weeks</Text>
                <Text>{dataLocal[1].moduleName}</Text>
