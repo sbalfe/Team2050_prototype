@@ -4,13 +4,8 @@ import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
 import { Link, useNavigation, useRouter, useSearchParams } from 'expo-router';
 import React, { useContext, useState } from 'react';
-import DropDownPicker from 'react-native-dropdown-picker';
-import { setBadgeCountAsync } from 'expo-notifications';
-import { ValueOf } from 'next/dist/shared/lib/constants';
 import ModuleData from '../../types/moduleData';
 import Assessment from '../../types/assesment';
-import { Router } from 'next/router';
-
 
 
 const dates: {[key: number]: string} = {
@@ -27,14 +22,14 @@ const dates: {[key: number]: string} = {
 export default function TabTwoScreen() {
   const [data, setData] = useState<ModuleData[]>([]);
   const [assessments, setAssesments] = useState<Assessment[]>([]);
-  const [moduleName, setModuleName] = useState('');
-  const [credits, setCredits] = useState('');
-  const [percentage, setPercentage] = useState('');
+  const [moduleName, setModuleName] = useState('ModuleName');
+  const [credits, setCredits] = useState('10');
+  const [percentage, setPercentage] = useState('70');
 
-  const [name, setName] = useState('');
-  const [studyHours, setStudyHours] = useState('');
+  const [name, setName] = useState('assessment');
+  const [studyHours, setStudyHours] = useState('30');
   const [date, setDate] = useState('');
-  const [proportion, setProportion] = useState('');
+  const [proportion, setProportion] = useState('50');
   const [dateIndex, setDateIndex] = useState<number>(1);
 
 
@@ -45,42 +40,36 @@ export default function TabTwoScreen() {
     setDateIndex(dateIndex + 1)
   }
 
-  const passData = () => {
-
-
-    const value: string = JSON.stringify(data);
-    router.push({ pathname: "/(tabs)/home", params: { data: value }});
-  }
+  const passData = () => {}
 
   const handleAddData = () => {
 
     if (data.length >= 4) {
       alert('You can only add up to 4 entries');
+      const value: string = JSON.stringify(data);
+      router.push({ pathname: "/(tabs)/home", params: { data: value }});
       return;
     }
 
     //const newData: ModuleData = { moduleName,studyHours, credits, assessments};
 
     setData([...data, { moduleName,studyHours, credits, assessments}]);
-    
-
-
-    setModuleName('');
+    setModuleName('Module Name');
     setCredits('');
     setPercentage('');
     setAssesments([]);
   };
+
+  const TimeTable = () => {
+    const value: string = JSON.stringify(data);
+    router.push({pathname: "/(tabs)/timetable", params: {data: value}});
+  }
 
   const checkRange = (value: number, lower_bound: number, upper_bound: number): boolean => {
     return !(value <= lower_bound || value >= upper_bound)
   }
 
   const handleAssesmentData = () => {
-
-    /* validation checks
-      - check presence of each field
-      - validate range 
-    */
 
     if (assessments.length >= 2) {
       alert('You can only add up to 2 assesments');
@@ -177,7 +166,6 @@ export default function TabTwoScreen() {
            style={{ backgroundColor: '#f5f5f5', width: 300 }} 
         />
       </View>
-     
   
       <View>
         <Text>date (automatically assigned)</Text>
@@ -195,9 +183,8 @@ export default function TabTwoScreen() {
       </View>
       <Button title='Clear All Data' onPress={wipeData} />
       <Button title='go to home tab' onPress={passData} />
+      <Button title='go to timetable tab' onPress={TimeTable} />
   
-
-
       <Text style = {{fontSize: 19, color: 'green'}}>Assessments</Text> 
       { 
       
@@ -208,19 +195,9 @@ export default function TabTwoScreen() {
             </View>
         ))
       }
-
-
-    
-  
-
-      <ScrollView style={{ height: 300 }}>
-   
+      <ScrollView style={{ height: 300 }}> 
       {data.map((module, index) => (
-
-          
-  
-        <View style = {{marginTop: 10,}} key={index}>
-      
+        <View style = {{marginTop: 10,}} key={index}>      
           <Text style = {{fontSize: 25, color: 'red'}} >{module.moduleName}</Text>
           <Text>Credits: {module.credits}</Text>
           <Text>Study Hours: {module.studyHours}</Text>
@@ -236,7 +213,6 @@ export default function TabTwoScreen() {
         </View>
       ))}
       </ScrollView>
-  
     </View>
  
   );
