@@ -131,7 +131,7 @@ export default function TabTwoScreen() {
 
   return (
     
-    <View>
+    <View style = {{marginTop: 30, marginBottom: 30, marginLeft: 30, marginRight: 30}}>
       <View>
         <Text>Module:</Text>
         <TextInput
@@ -190,7 +190,9 @@ export default function TabTwoScreen() {
       <View style = {{marginBottom: 14}}>
         <Button title='Add Assessment' onPress={handleAssesmentData} />
       </View>
-      <Button title='Submit' onPress={handleAddData} />
+      <View>
+        <Button title='Submit' onPress={handleAddData} />
+      </View>
       <Button title='Clear All Data' onPress={wipeData} />
       <Button title='go to home tab' onPress={passData} />
   
